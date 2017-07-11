@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from LineManagerImplService WSDL service -->
+
+  <service name="LineManagerImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://service.omar.com"/>
+      <parameter name="wsdlServiceElement" value="LineManagerImplService"/>
+      <parameter name="schemaQualified" value="http://model.omar.com,http://service.omar.com"/>
+      <parameter name="wsdlServicePort" value="LineManagerImpl"/>
+      <parameter name="className" value="com.omar.service.LineManagerImpl"/>
+      <parameter name="wsdlPortType" value="LineManagerImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://service.omar.com" xmlns:retNS="http://service.omar.com" xmlns:rtns="http://service.omar.com" xmlns:tns="http://service.omar.com" name="getAllLine" qname="operNS:getAllLine" returnQName="retNS:getAllLineReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://service.omar.com" name="addNewLine" qname="operNS:addNewLine" soapAction="">
+        <parameter xmlns:pns="http://service.omar.com" xmlns:tns="http://model.omar.com" qname="pns:lineEntity" type="tns:LineEntity"/>
+      </operation>
+      <operation xmlns:operNS="http://service.omar.com" xmlns:retNS="http://service.omar.com" xmlns:rtns="http://service.omar.com" xmlns:tns="http://service.omar.com" name="getAllLineByCompanyAndDay" qname="operNS:getAllLineByCompanyAndDay" returnQName="retNS:getAllLineByCompanyAndDayReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://service.omar.com" qname="pns:codeCompany" type="tns:string"/>
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://service.omar.com" qname="pns:workinDay" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://service.omar.com" xmlns:retNS="http://service.omar.com" xmlns:rtns="http://service.omar.com" xmlns:tns="http://service.omar.com" name="getAllLineByWorkinDay" qname="operNS:getAllLineByWorkinDay" returnQName="retNS:getAllLineByWorkinDayReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://service.omar.com" qname="pns:workingDay" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="getAllLineByWorkinDay getAllLine getAllLineByCompanyAndDay addNewLine"/>
+
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;addNewLine" type="java:com.omar.service.AddNewLine" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;getAllLineByCompanyAndDay" type="java:com.omar.service.GetAllLineByCompanyAndDay" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;getAllLineByWorkinDayResponse" type="java:com.omar.service.GetAllLineByWorkinDayResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;getAllLineByCompanyAndDayResponse" type="java:com.omar.service.GetAllLineByCompanyAndDayResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;addNewLineResponse" type="java:com.omar.service.AddNewLineResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;getAllLineByWorkinDay" type="java:com.omar.service.GetAllLineByWorkinDay" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;getAllLine" type="java:com.omar.service.GetAllLine" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://service.omar.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.omar.com" qname="ns:CompanyEntity" type="java:com.omar.model.CompanyEntity" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://model.omar.com" qname="ns:LineEntity" type="java:com.omar.model.LineEntity" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://service.omar.com" qname="ns:&gt;getAllLineResponse" type="java:com.omar.service.GetAllLineResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.omar.com"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service.omar.com"
+	xmlns:intf="http://service.omar.com" xmlns:tns1="http://model.omar.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<!--WSDL created by Apache Axis version: 1.4 Built on Apr 22, 2006 (06:55:48 
+		PDT) -->
+	<wsdl:types>
+		<schema elementFormDefault="qualified" targetNamespace="http://service.omar.com"
+			xmlns="http://www.w3.org/2001/XMLSchema">
+			<!-- <import namespace="http://model.omar.com" /> -->
+			<element name="getAllLine">
+				<complexType />
+			</element>
+			<element name="getAllLineResponse">
+				<complexType>
+					<sequence>
+						<element minOccurs="0" maxOccurs="unbounded" name="getAllLineReturn"
+							type="impl:LineEntity" />
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="CompanyEntity">
+				<sequence>
+					<element name="codCompany" nillable="true" type="xsd:string" />
+					<element name="entitiesLine" nillable="true">
+						<complexType>
+							<sequence>
+								<element maxOccurs="unbounded" name="lineEntity" type="impl:LineEntity" />
+							</sequence>
+						</complexType>
+					</element>
+					<element name="idCompany" type="xsd:int" />
+					<element name="nameCompany" nillable="true" type="xsd:string" />
+				</sequence>
+			</complexType>
+			<complexType name="LineEntity">
+				<sequence>
+					<element name="codRefCompany" nillable="true" type="impl:CompanyEntity" />
+					<element name="gate" type="xsd:int" />
+					<element name="idLine" type="xsd:int" />
+					<element name="leaveFrom" nillable="true" type="xsd:string" />
+					<element name="note" nillable="true" type="xsd:string" />
+					<element name="state" nillable="true" type="xsd:string" />
+					<element name="timeDeparture" nillable="true" type="xsd:string" />
+					<element name="workinDay" nillable="true" type="xsd:string" />
+				</sequence>
+			</complexType>
+		</schema>
+	</wsdl:types>
+
+
+	<wsdl:message name="getAllLineRequest">
+
+		<wsdl:part element="impl:getAllLine" name="parameters">
+
+		</wsdl:part>
+
+	</wsdl:message>
+
+	<wsdl:message name="getAllLineResponse">
+
+		<wsdl:part element="impl:getAllLineResponse" name="parameters">
+
+		</wsdl:part>
+
+	</wsdl:message>
+
+	<wsdl:portType name="LineManagerImpl">
+
+		<wsdl:operation name="getAllLine">
+
+			<wsdl:input message="impl:getAllLineRequest" name="getAllLineRequest">
+
+			</wsdl:input>
+
+			<wsdl:output message="impl:getAllLineResponse" name="getAllLineResponse">
+
+			</wsdl:output>
+
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="LineManagerImplSoapBinding" type="impl:LineManagerImpl">
+
+		<wsdlsoap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="getAllLine">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="getAllLineRequest">
+
+				<wsdlsoap:body use="literal" />
+
+			</wsdl:input>
+
+			<wsdl:output name="getAllLineResponse">
+
+				<wsdlsoap:body use="literal" />
+
+			</wsdl:output>
+
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="LineManagerImplService">
+
+		<wsdl:port binding="impl:LineManagerImplSoapBinding" name="LineManagerImpl">
+
+			<wsdlsoap:address
+				location="http://localhost:8080/Omar/services/LineManagerImpl" />
+
+		</wsdl:port>
+
+	</wsdl:service>
+
+</wsdl:definitions>
